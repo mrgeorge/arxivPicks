@@ -4,7 +4,6 @@ echo "<html>\n";
 echo "<head>\n";
 echo "<title>arXiv Picks</title>\n";
 echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"arxiv.css\" />\n";
-echo "<link rel=\"icon\" href=\"cal_logo.ico\" />\n";
 echo "</head>\n\n";
 
 echo "<body>\n";
