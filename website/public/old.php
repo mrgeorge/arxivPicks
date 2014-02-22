@@ -11,7 +11,7 @@ echo "<div id=\"header\">\n";
 echo "<h1>arXiv Picks</h1>\n";
 echo "</div>\n";
 echo "<div id=\"content\"><div id=\"abs\"><div class=\"subheader\">\n";
-echo "<h1><a href=\"http://arxiv.org/list/astro-ph/new?skip=0&show=250\">astro-ph</a> | <a href=\"index.php\">New papers</a> | <a href=\"info.html\">Info</a></h1>\n";
+echo "<h1><a href=\"http://arxiv.org/list/astro-ph/new?skip=0&show=250\">astro-ph</a> | <a href=\"index.php\">New papers</a></h1>\n";
 echo "</div></div>\n";
 
 echo "<div id=\"dlpage\">\n";
