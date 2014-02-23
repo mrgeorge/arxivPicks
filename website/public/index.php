@@ -1,19 +1,8 @@
 <?php
 
 // Set path to arxivPicks files
-$APHOME = "/path/to/arxivPicks"
+$APHOME = "/o/mgeorge/arxivPicks"
 $db_file = $APHOME."/backend/arxivPicks.db";
-$logfile = $APHOME."/website/log.txt";
-
-// Log IP address
-$IP = $_SERVER['REMOTE_ADDR'];
-$REF = $_SERVER['HTTP_REFERER'];
-date_default_timezone_set('America/Los_Angeles');
-$date_time = date('Y-m-d H:i:s');
-$day_of_week = date("l");
-$fp = fopen($logfile, "a");
-fputs($fp, "$date_time $IP $REF\n");
-fclose($fp);
 
 // Write html for display
 echo "<html>\n";

@@ -1,7 +1,7 @@
 <?php
 
 // Set path to arxivPicks files
-$APHOME = "/path/to/arxivPicks"
+$APHOME = "/o/mgeorge/arxivPicks";
 $db_file = $APHOME."/backend/arxivPicks.db";
 $logfile = $APHOME."/website/log.txt";
 
