@@ -1,6 +1,13 @@
 <?php
 
-// Determine if this is being called at the right time
+// tuesday_mail.php
+// Email list of papers for discussion as of Tuesday morning
+
+// Set path to arxivPicks database
+$APHOME = "/path/to/arxivPicks";
+$db_file = $APHOME."/backend/arxivPicks.db";
+
+// Determine if script is being called at the right time
 date_default_timezone_set('America/Los_Angeles');
 $diff_lim = 5.0; // max minutes away from goal_time
 $goal_time = strtotime('10:15:00');
@@ -10,15 +17,12 @@ $day = date("l");
 $now = time();
 $diff = abs(($now-$goal_time)/60.); //time difference in minutes
 
-//Send email if it's called near the desired cron time
-// (this avoids sending mail if it's run from the CL at another time)
+//Send email if called near the desired cron time
 if (($day == $goal_day) && ($diff < $diff_lim)) {
 
    $body = "Greetings humans,\n\nArxiv Discussion will take place today at 11:15am in the lounge.";
 
-   // set path of database file
-   $db_file = "/insert/path/to/database/arxiv.db";
-   // open database object
+   // Open database object
    $db = new SQLiteDatabase($db_file) or die("Could not open database");
 
    $query = "SELECT * FROM articles WHERE date > DATETIME('NOW','LOCALTIME','WEEKDAY 4','-7 DAYS','START OF DAY','+12 HOURS') ORDER BY count DESC, date DESC";
