@@ -74,11 +74,11 @@ function add_ui() {
     if (/\/list/.test(loc)) {
         add_listing_ui();
     } else if (/\/abs/.test(loc)) {
-        add_absract_ui();
+        add_abstract_ui();
     }
 }
 
-function add_absract_ui() {
+function add_abstract_ui() {
     var article_id = location_parse_article_id();
     
     var form = create_form(article_id);
