@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           arxiv discussion
+// @name           arxivPicks
 // @namespace      arxiv
 // @description    Add bookmark button to arxiv website
 // @include        http://*.arxiv.org/abs/*
@@ -85,7 +85,7 @@ function add_abstract_ui() {
     var header = document.createElement("div");
     container.setAttribute("class", "citebase");
     header.setAttribute("class", "heading");
-    header.textContent = "Arxiv Discussion"
+    header.textContent = "arxivPicks"
     
     container.appendChild(header);
     container.appendChild(form);

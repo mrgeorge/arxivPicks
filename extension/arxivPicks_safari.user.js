@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           arxiv discussion
+// @name           arxivPicks
 // @namespace      arxiv
 // @description    Add bookmark button to arxiv website
 // @include        http://*.arxiv.org/abs/*
@@ -9,8 +9,6 @@
 // @include        http://xxx.lanl.gov/abs/*
 // @include        http://xxx.lanl.gov/list/*
 // ==/UserScript==
-
-// arxivdiscussion_safari.user.js Version 0.1
 
 bookmark_uri = "http://example.com/safari.php";
 
@@ -87,7 +85,7 @@ function add_abstract_ui() {
     var header = document.createElement("div");
     container.setAttribute("class", "citebase");
     header.setAttribute("class", "heading");
-    header.textContent = "Arxiv Discussion"
+    header.textContent = "arxivPicks"
     
     container.appendChild(header);
     container.appendChild(form);
