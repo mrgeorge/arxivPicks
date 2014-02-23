@@ -6,7 +6,7 @@
 // Update arxivPicks database with paper information.
 
 // Set path to arxivPicks database
-$APHOME = "/o/mgeorge/arxivPicks";
+$APHOME = "/path/to/arxivPicks";
 $db_file = $APHOME."/backend/arxivPicks.db";
 
 include_once("php/simplepie.inc");
