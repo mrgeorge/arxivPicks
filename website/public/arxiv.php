@@ -1,18 +1,23 @@
 <?php
 
-include_once("/insert/path/to/simplepie/simplepie.inc");
+// arxiv.php
+// Receive POST requests from arxivPicks browser extension,
+// Grab paper metadata from arxiv.org API
+// Update arxivPicks database with paper information.
 
-// set path of database file
-$db_file = "/insert/path/to/database/arxiv.db";
-// open database object
+// Set path to arxivPicks database
+$APHOME = "/o/mgeorge/arxivPicks";
+$db_file = $APHOME."/backend/arxivPicks.db";
+
+include_once("php/simplepie.inc");
+
+// Open database object
 $db = new SQLiteDatabase($db_file) or die("Could not open database");
 
-
-// get entry for bookmark table
+// Get ID for bookmark table
 $arxiv_id = sqlite_escape_string($_POST['article_id']);
 
-
-// check if the article_id has been bookmarked and update or add entry
+// Check if the arxiv_id has been bookmarked and update or add entry
 $first_row_only = TRUE;
 $result = $db->singlequery("SELECT count FROM articles WHERE arxiv_id = ".$arxiv_id, $first_row_only);
 
@@ -23,17 +28,18 @@ if($result) {
 else {
     $count = 1;
 
-    // get article info from arxiv and add to table
-    // this section mainly from: http://export.arxiv.org/api_help/docs/examples/php_arXiv_parsing_example.txt
+    // Get article info from arxiv and add to table
+    // See example arxiv.org API query at
+    // http://export.arxiv.org/api_help/docs/examples/php_arXiv_parsing_example.txt
 
-    # Base api query url
+    // Base api query url
     $base_url = 'http://export.arxiv.org/api/query?';
 
-    # Search parameters
+    // Search parameters
     $id_list = $arxiv_id;
     $max_results = 1;
 
-    # Construct the query with the search parameters
+    // Construct the query with the search parameters
     $api_query = "id_list=".$id_list."&max_results=".$max_results;
 
     $feed = new SimplePie();
@@ -44,14 +50,14 @@ else {
 
     $item = $feed->get_item(0);
 
-    # Use these namespaces to retrieve tags
+    // Use these namespaces to retrieve tags
     $atom_ns = 'http://www.w3.org/2005/Atom';
     $opensearch_ns = 'http://a9.com/-/spec/opensearch/1.1/';
     $arxiv_ns = 'http://arxiv.org/schemas/atom';
 
     $title = sqlite_escape_string($item->get_title());
 
-    # get the links to the abs page and pdf for this e-print
+    // Get the links to the abs page and pdf for this e-print
     foreach ($item->get_item_tags($atom_ns,'link') as $link) {
         if ($link['attribs']['']['rel'] == 'alternate') {
             $uri_abs = $link['attribs']['']['href'];
@@ -59,16 +65,16 @@ else {
             $uri_pdf = $link['attribs']['']['href'];
         }
     }
-    # gather a list of authors and affiliation
-    #  This is a little complicated due to the fact that the author
-    #  affiliations are in the arxiv namespace (if present)
-    # Manually getting author information using get_item_tags
+    // Gather a list of authors and affiliation
+    // This is a little complicated due to the fact that the author
+    // affiliations are in the arxiv namespace (if present)
+    // Manually getting author information using get_item_tags
     $authors = array();
     foreach ($item->get_item_tags($atom_ns,'author') as $author) {
         $name = $author['child'][$atom_ns]['name'][0]['data'];
 	$affils = array();
         
-	# If affiliations are present, grab them
+	// If affiliations are present, grab them
 	if ($author['child'][$arxiv_ns]['affiliation']) {
             foreach ($author['child'][$arxiv_ns]['affiliation'] as $affil) {
                 array_push($affils,$affil['data']);
@@ -83,11 +89,11 @@ else {
     $author_string = sqlite_escape_string(join(', ',$authors));
     $abstract = sqlite_escape_string($item->get_description());
 
-    // now put the article information into the database
+    // Now put the article information into the database
     $query = "INSERT INTO articles (date, count, arxiv_id, uri_abs, uri_pdf, title, authors, abstract) VALUES (DATETIME('NOW','LOCALTIME'), ".$count.", \"".$arxiv_id."\", \"".$uri_abs."\", \"".$uri_pdf."\", \"".$title."\", \"".$author_string."\", \"".$abstract."\")";
 }
 
-// now finally run the query
+// Finally run the INSERT or UPDATE query
 $result = $db->query($query) or die("Error in query");
 
 // close database file
