@@ -30,8 +30,8 @@ if [ ! -d "$APWEBDIR" ]; then
     mkdir -p -v APWEBDIR
 fi
 # Move public web files to web dir
-rsync -avz $APHOME/website/public/ $APWEBDIR
-rm -rf $APHOME/website/public/*
+rsync -avz $APHOME/website/ $APWEBDIR
+rm -rf $APHOME/website
 
 echo "================================================================================"
 echo "arxivPicks setup has run."
