@@ -15,9 +15,9 @@ Run the setup script and follow the prompts
     cd arxivPicks
     ./setup.sh
 
-The database, browser extension scripts, and web files are now set up on your machine. To run the extension use must open it with Greasemonkey (Firefox) or Greasekit (Safari). For Firefox, you can also create a stand-alone extension (.xpi file) with the script compiler at https://arantius.com/misc/greasemonkey/script-compiler.php .
+The database, browser extension scripts, and web files are now set up on your machine. To run the extension, open it with Greasemonkey (Firefox) or Greasekit (Safari). For Firefox, you can also create a stand-alone extension (.xpi file) with the script compiler at https://arantius.com/misc/greasemonkey/script-compiler.php .
 
-The default discussion times are Tuesday and Thursday mornings, and a cron job can be set up to run the email scripts in arxivPicks/backend. You can modify the times there as well as in the website files prior to running the setup script.
+The default discussion times are Tuesday and Thursday mornings, and a cron job can be set up to run the email scripts in arxivPicks/backend. Modify the times there and in the website files accordingly before running the setup script.
 
 Dependencies
 ------------
